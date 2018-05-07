@@ -1,0 +1,35 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region": "ap-southeast-2",
+    "aws_ami_image": "ami-8267abe0",
+    "aws_instance_type": "t2.micro"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `aws_region`}}",
+      "source_ami": "{{user `aws_ami_image`}}",
+      "instance_type": "{{user `aws_instance_type`}}",
+      "ssh_username": "ec2-user",
+      "ami_name": "jenkins-lts-docker-{{timestamp}}",
+      "tags": {
+        "Name": "jenkins-lts-docker-{{timestamp}}",
+        "OS_Version": "LinuxCentOS7",
+        "Release": "7",
+        "Description": "Amazon Linux LTS for docker and jenkins LTS"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/000-jenkins-ec2-provision.sh"
+      ]
+    }
+  ]
+}
