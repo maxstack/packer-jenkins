@@ -11,6 +11,12 @@ Export your AWS environment variables (if they aren't already in .aws), make sur
  export AWS_SECRET_ACCESS_KEY=
 ```
 
+Run the following commands to set the Jenkins username and password
+```
+sed -i -e 's/_USERNAME_/admin/g' scripts/000-jenkins-ec2-provision.sh
+sed -i -e 's/_PASSWORD_/somecomplexpassword/g' scripts/000-jenkins-ec2-provision.sh
+```
+
 Edit jenkins-packer-ec2.json and change the region if required.
 
 Next validate your file then build!
