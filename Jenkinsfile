@@ -20,7 +20,7 @@ node {
         sh '${PACKER_CMD} validate jenkins-packer-ec2.json'
       }
     }
-    cleanWs()
+//    cleanWs()
   }
 
   if (env.desiredAction == 'buildPacker') {
@@ -44,6 +44,6 @@ node {
         sh '${PACKER_CMD} build jenkins-packer-ec2.json'
       }
     }
-    cleanWs()
+//    cleanWs()
   }
 }
