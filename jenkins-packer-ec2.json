@@ -15,9 +15,9 @@
       "source_ami": "{{user `aws_ami_image`}}",
       "instance_type": "{{user `aws_instance_type`}}",
       "ssh_username": "ec2-user",
-      "ami_name": "jenkins-lts-docker-{{isotime \"2006-01-02\"}}",
+      "ami_name": "jenkins-lts-docker-{{isotime \"2006-01-02__03\_04\_05\"}}",
       "tags": {
-        "Name": "jenkins-lts-docker-{{isotime \"2006-01-02\"}}",
+        "Name": "jenkins-lts-docker-{{isotime \"2006-01-02__03\_04\_05\"}}",
         "OS_Version": "LinuxCentOS7",
         "Release": "7",
         "Description": "Amazon Linux LTS for docker and jenkins LTS"
