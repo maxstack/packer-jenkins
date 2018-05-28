@@ -1,5 +1,4 @@
 #!/bin/bash
-
 sudo yum update -y \
 && sudo yum install docker git -y \
 && sudo systemctl enable docker \
