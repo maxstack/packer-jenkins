@@ -67,7 +67,6 @@ node {
 //        AMI_ID = sh(returnStdout: true, script: "grep artifact_id ../../jobs/sample/builds/8/archive/manifest.json  | awk '{print \$2}' |  sed 's/\"//g' | sed 's/,//g' |cut -d':' -f2").trim()
         AMI_ID = sh(returnStdout: true, script: '''grep artifact_id ../../jobs/sample/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f2''').trim()
         //sh "grep artifact_id ../../jobs/sample/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/\"//g' | sed 's/,//g' |cut -d':' -f1" 
-        echo $AMI_ID
       }
     } else {
       stage ('Abort') {
