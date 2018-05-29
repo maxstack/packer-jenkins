@@ -97,7 +97,7 @@ node {
 //      archiveArtifacts artifacts: 'manifest.json'
 //    }
 //
-//    cleanWs()
+    cleanWs()
 //  }
   }
 
