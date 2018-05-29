@@ -31,7 +31,7 @@
         "scripts/000-jenkins-ec2-provision.sh"
       ]
     }
-  ]
+  ],
   "post-processors": [
     {
       "type": "manifest",
