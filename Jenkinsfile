@@ -66,6 +66,7 @@ node {
       stage ('Set some artifact variables if they exist) {
         AMI_ID = sh "grep artifact_id ../../jobs/sample/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/\"//g' | sed 's/,//g' |cut -d':' -f2"
         AMI_REGION = sh "grep artifact_id ../../jobs/sample/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/\"//g' | sed 's/,//g' |cut -d':' -f1" 
+      }
     } else {
       stage ('Abort') {
         currentBuild.result = 'ABORTED'
