@@ -56,8 +56,6 @@ node {
   if (env.desiredAction == 'destroyPacker') {
 
     def exists = fileExists "../../jobs/${env.JOB_NAME}/lastSuccessful/archive/manifest.json"
-//    def exists = fileExists "../../jobs/sample/builds/8/archive/manifest.json"
-
 
     if (exists) {
       stage ('Copy artifacts if they exist') {
@@ -82,24 +80,6 @@ node {
         sh "aws ec2 delete-snapshot --snapshot-id ${SNAP_ID}"
       }
     }
-
-//    // Optional wait for approval
-//    input 'Destroy packer image?'
-//
-//    stage ('Packer destroy') {
-//      ansiColor('xterm') {
-//        sh 'aws build jenkins-packer-ec2.json'
-//      }
-//    }
-//
-//    stage ("Archive build output") {
-//      // Archive the build output artifacts.
-//      archiveArtifacts artifacts: 'manifest.json'
-//    }
-//
     cleanWs()
-//  }
   }
-
-
 }
