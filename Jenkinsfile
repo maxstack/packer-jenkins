@@ -78,7 +78,7 @@ node {
 
     stage ('cat info') {
       ansiColor('xterm') {
-        echo AMI_ID
+        echo ${env.AMI_ID}
       }
     }
 
