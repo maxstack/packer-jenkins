@@ -55,7 +55,7 @@ node {
 
   if (env.desiredAction == 'destroyPacker') {
 
-    def exists = fileExists '../lastSuccessful/archive/manifest.json'
+    def exists = fileExists '../../jobs/"env.JOB_NAME"/lastSuccessful/archive/manifest.json'
 
     if (exists) {
       stage ('Copy artifacts if they exist') {
