@@ -52,4 +52,45 @@ node {
 
     cleanWs()
   }
+
+  if (env.desiredAction == 'destroyPacker') {
+
+    def exists = fileExists '../lastSuccessful/archive/manifest.json'
+
+    if (exists) {
+      stage ('Copy artifacts if they exist') {
+        step([$class: 'CopyArtifact', optional: true, filter: 'manifest.json', fingerprintArtifacts: true, flatten: true, projectName: env.JOB_NAME, selector: lastSuccessful()])
+      }
+    } else {
+      stage ('Abort') {
+        currentBuild.result = 'ABORTED'
+        error('ABORTING. Please run buildPacker first.')
+        }
+      }
+
+    stage ('cat info') {
+      ansiColor('xterm') {
+        sh 'cat manifest.json'
+      }
+    }
+
+//    // Optional wait for approval
+//    input 'Destroy packer image?'
+//
+//    stage ('Packer destroy') {
+//      ansiColor('xterm') {
+//        sh 'aws build jenkins-packer-ec2.json'
+//      }
+//    }
+//
+//    stage ("Archive build output") {
+//      // Archive the build output artifacts.
+//      archiveArtifacts artifacts: 'manifest.json'
+//    }
+//
+//    cleanWs()
+//  }
+  }
+
+
 }
