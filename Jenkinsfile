@@ -66,7 +66,7 @@ node {
       stage ('Set some artifact variables if they exist') {
         AMI_ID = sh(returnStdout: true, script: """grep artifact_id ../../jobs/$JOB_NAME/builds/8/archive/manifest.json  | awk '{print \$2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f2""").trim()
         AMI_REGION = sh(returnStdout: true, script: """grep artifact_id ../../jobs/$JOB_NAME/builds/8/archive/manifest.json  | awk '{print \$2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f1""").trim()
-        sh 'cat manifest.json'
+        PACKER_RUN_UUID = sh(returnStdout: true, script: """grep packer_run_uuid ../../jobs/$JOB_NAME/builds/8/archive/manifest.json  | awk '{print \$2}' |  sed 's/"//g' | sed 's/,//g'""").trim()
       }
     } else {
       stage ('Abort') {
@@ -75,12 +75,13 @@ node {
         }
       }
 
-//    stage ('Destroy AMI') {
-//      ansiColor('xterm') {
-//        sh "aws ec2 deregister-image --image-id ${AMI_ID}"
-//        sh "aws ec2 delete-snapshot --snapshot-id ${SNAPSHOT_ID}"
-//      }
-//    }
+    stage ('Destroy AMI') {
+      ansiColor('xterm') {
+        sh "aws ec2 deregister-image --image-id ${AMI_ID}"
+        SNAP_ID = sh(returnStdout: true, script: """aws ec2 describe-images --filter Name=tag:packer_run_uuid,Values=${PACKER_RUN_UUID} | jq ".Images[0].ImageId,.Images[0].BlockDeviceMappings[0].Ebs.SnapshotId" | sed -n '2 p' | sed 's/"//g'"""
+        sh "aws ec2 delete-snapshot --snapshot-id ${SNAP_ID}"
+      }
+    }
 
 //    // Optional wait for approval
 //    input 'Destroy packer image?'

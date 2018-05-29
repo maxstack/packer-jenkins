@@ -20,7 +20,8 @@
         "Name": "jenkins-lts-docker-{{timestamp}}",
         "OS_Version": "AmazonLinux LTS",
         "Release": "7",
-        "Description": "Amazon Linux LTS for docker and jenkins LTS"
+        "Description": "Amazon Linux LTS for docker and jenkins LTS",
+	"packer_run_uuid": "{{packer_run_uuid}}"
       }
     }
   ],
