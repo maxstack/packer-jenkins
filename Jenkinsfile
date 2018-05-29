@@ -64,8 +64,8 @@ node {
         step([$class: 'CopyArtifact', optional: true, filter: 'manifest.json', fingerprintArtifacts: true, flatten: true, projectName: env.JOB_NAME, selector: lastSuccessful()])
       }
       stage ('Set some artifact variables if they exist') {
-        AMI_ID = sh(returnStdout: true, script: """grep artifact_id ../../jobs/${env.JOB_NAME}/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f2""").trim()
-        AMI_REGION = sh(returnStdout: true, script: """grep artifact_id ../../jobs/${env.JOB_NAME}/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f1""").trim()
+        AMI_ID = sh(returnStdout: true, script: """grep artifact_id ../../jobs/${JOB_NAME}/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f2""").trim()
+        AMI_REGION = sh(returnStdout: true, script: """grep artifact_id ../../jobs/${JOB_NAME}/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f1""").trim()
       }
     } else {
       stage ('Abort') {
