@@ -63,7 +63,7 @@ node {
       stage ('Copy artifacts if they exist') {
         step([$class: 'CopyArtifact', optional: true, filter: 'manifest.json', fingerprintArtifacts: true, flatten: true, projectName: env.JOB_NAME, selector: lastSuccessful()])
       }
-      stage ('Set some artifact variables if they exist) {
+      stage ('Set some artifact variables if they exist') {
         AMI_ID = sh "grep artifact_id ../../jobs/sample/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/\"//g' | sed 's/,//g' |cut -d':' -f2"
         AMI_REGION = sh "grep artifact_id ../../jobs/sample/builds/8/archive/manifest.json  | awk '{print $2}' |  sed 's/\"//g' | sed 's/,//g' |cut -d':' -f1" 
       }
