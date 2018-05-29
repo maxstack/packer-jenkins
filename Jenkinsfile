@@ -66,6 +66,7 @@ node {
       stage ('Set some artifact variables if they exist') {
         AMI_ID = sh(returnStdout: true, script: """grep artifact_id ../../jobs/$JOB_NAME/builds/8/archive/manifest.json  | awk '{print \$2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f2""").trim()
         AMI_REGION = sh(returnStdout: true, script: """grep artifact_id ../../jobs/$JOB_NAME/builds/8/archive/manifest.json  | awk '{print \$2}' |  sed 's/"//g' | sed 's/,//g' |cut -d':' -f1""").trim()
+        sh 'cat manifest.json'
       }
     } else {
       stage ('Abort') {
@@ -74,12 +75,12 @@ node {
         }
       }
 
-    stage ('cat info') {
-      ansiColor('xterm') {
-        echo AMI_ID
-        echo AMI_REGION
-      }
-    }
+//    stage ('Destroy AMI') {
+//      ansiColor('xterm') {
+//        sh "aws ec2 deregister-image --image-id ${AMI_ID}"
+//        sh "aws ec2 delete-snapshot --snapshot-id ${SNAPSHOT_ID}"
+//      }
+//    }
 
 //    // Optional wait for approval
 //    input 'Destroy packer image?'
