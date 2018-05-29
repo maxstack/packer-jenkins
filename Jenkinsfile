@@ -80,7 +80,7 @@ node {
     stage ('cat info') {
       ansiColor('xterm') {
         echo AMI_ID
-#        echo AMI_REGION
+//        echo AMI_REGION
       }
     }
 
