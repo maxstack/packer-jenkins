@@ -2,7 +2,7 @@
 
 node {
 
-  env.PACKER_CMD = "docker run -v $HOME/.aws:$HOME:.aws  --rm --network host -w /app -v ${WORKSPACE}:/app hashicorp/packer:light"
+  env.PACKER_CMD = "docker run -v $HOME/.aws:/root/.aws:ro  --rm --network host -w /app -v ${WORKSPACE}:/app hashicorp/packer:light"
 
   stage ('Checkout') {
     checkout scm
